@@ -19,12 +19,26 @@ function App() {
     return () => video.removeEventListener("timeupdate", update);
   }, [currentIndex]);
 
+  const speakJapanese = (text) => {
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    const voices = speechSynthesis.getVoices();
+    const jpVoice = voices.find(v => v.lang === "ja-JP" && (v.name.includes("Google") || v.name.includes("Kyoko")));
+    if (jpVoice) {
+      utterance.voice = jpVoice;
+    } else {
+      const fallback = voices.find(v => v.lang === "ja-JP");
+      if (fallback) utterance.voice = fallback;
+    }
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="dark flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
-      <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-4 border-b">
-        <h1 className="text-2xl font-bold mb-2">New Atashin'chi Episode 19</h1>
-        <a href="./video/Atashinchi_001.mp4" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline mb-2 inline-block">Watch on Video</a>
-        <div style={{ position: 'relative', width: '100%', height: 0, paddingBottom: '56.25%' }}>
+      <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-6 shadow-md border-b">
+        <h1 className="text-3xl font-bold mb-4 tracking-tight">Atashin'chi Episode 1</h1>
+        <div className="rounded-lg overflow-hidden shadow-lg border dark:border-gray-700" style={{ position: 'relative', width: '100%', height: 0, paddingBottom: '56.25%' }}>
           <iframe
             width="100%"
             height="100%"
@@ -39,34 +53,20 @@ function App() {
         </div>
       </div>
 
-      <div className="flex-grow overflow-y-scroll p-4">
+      <div className="flex-grow overflow-y-scroll p-6 space-y-4 bg-gray-50 dark:bg-gray-800">
         {Array.isArray(subtitles) && subtitles.map((line, idx) => (
           <div
             key={idx}
-            className={`p-4 border rounded mb-4 ${idx === currentIndex ? 'border-blue-500 bg-blue-50 dark:bg-blue-800' : 'border-gray-300 dark:border-gray-600'}`}
+            className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${idx === currentIndex ? 'border-2 border-blue-500 bg-blue-100 dark:bg-blue-900' : 'border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900'}`}
           >
-            <p className="text-lg font-medium">{line.japanese}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{line.furigana}</p>
-            <p className="text-base">{line.english}</p>
-            <button
-              className="mt-2 text-blue-600 dark:text-blue-400 underline"
-              onClick={() => {
-                speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(line.japanese);
-                utterance.lang = "ja-JP";
-                const voices = speechSynthesis.getVoices();
-                const jpVoice = voices.find(v => v.lang === "ja-JP" && (v.name.includes("Google") || v.name.includes("Kyoko")));
-                if (jpVoice) {
-                  utterance.voice = jpVoice;
-                } else {
-                  const fallback = voices.find(v => v.lang === "ja-JP");
-                  if (fallback) utterance.voice = fallback;
-                }
-                speechSynthesis.speak(utterance);
-              }}
+            <p
+              className="text-xl font-semibold underline cursor-pointer hover:text-blue-600 dark:hover:text-blue-300"
+              onClick={() => speakJapanese(line.japanese)}
             >
-              ▶ Speak
-            </button>
+              {line.japanese}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{line.furigana}</p>
+            <p className="text-base mt-2 text-gray-700 dark:text-gray-200">{line.english}</p>
           </div>
         ))}
       </div>
