@@ -62,11 +62,11 @@ function App() {
                 }`}
               >
                 <p
-  className="text-xl font-extrabold underline tracking-wider cursor-pointer hover:text-blue-600"
-  onClick={() => speakJapanese(line.japanese)}
->
-  {line.japanese}
-</p>                
+                  className="text-xl font-bold underline tracking-wider cursor-pointer hover:text-blue-600"
+                  onClick={() => speakJapanese(line.japanese)}
+                >
+                  {line.japanese}
+                </p>
                 <p className="text-sm text-gray-500 mt-1">{line.furigana}</p>
                 <p className="text-base mt-2 text-gray-700">{line.english}</p>
               </div>
