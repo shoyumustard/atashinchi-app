@@ -1,5 +1,3 @@
-// changes marked with comments 👇
-
 import { useEffect, useRef, useState } from "react";
 import subtitles from './subtitles/subtitles';
 
@@ -7,7 +5,7 @@ function App() {
   const videoRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark'; // 👈 load preference
+    return localStorage.getItem('theme') === 'dark';
   });
 
   useEffect(() => {
@@ -28,10 +26,10 @@ function App() {
     const root = document.documentElement;
     if (isDarkMode) {
       root.classList.add("dark");
-      localStorage.setItem('theme', 'dark'); // 👈 save preference
+      localStorage.setItem("theme", "dark");
     } else {
       root.classList.remove("dark");
-      localStorage.setItem('theme', 'light');
+      localStorage.setItem("theme", "light");
     }
   }, [isDarkMode]);
 
@@ -46,9 +44,9 @@ function App() {
   };
 
   return (
-    <div className="font-jp"> {/* 👈 added font-jp here */}
-      <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
-        <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-6 shadow-md border-b flex flex-col items-center">
+    <div className="font-jp"> {/* JP font applied globally */}
+      <div className="flex flex-col h-screen bg-white text-black dark:bg-black dark:text-white">
+        <div className="sticky top-0 z-10 bg-white dark:bg-black p-6 shadow-md border-b border-gray-300 dark:border-gray-700 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
             <button
@@ -73,11 +71,15 @@ function App() {
           </div>
         </div>
 
-        <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-50 dark:bg-gray-800">
+        <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-50 dark:bg-gray-900">
           {Array.isArray(subtitles) && subtitles.map((line, idx) => (
             <div key={idx}>
               <div
-                className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${idx === currentIndex ? 'border-2 border-blue-500 bg-blue-100 dark:bg-blue-900' : 'border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900'}`}
+                className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${
+                  idx === currentIndex
+                    ? 'border-2 border-blue-500 bg-blue-100 dark:bg-blue-900'
+                    : 'border border-gray-300 dark:border-gray-700 bg-white dark:bg-black'
+                }`}
               >
                 <p
                   className="text-xl font-bold underline cursor-pointer hover:text-blue-600 dark:hover:text-blue-300"
