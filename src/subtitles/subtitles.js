@@ -821,7 +821,7 @@ const subtitles = [
   {
     japanese: "便利って… あんな特別な物 どこにも売ってないってば",
     furigana: "べんりって… あんなとくべつなもの どこにもうってないってば",
-    english: ""Convenience... There's nowhere you can buy such a special thing, you know."",
+    english: "Convenience... There's nowhere you can buy such a special thing, you know.",
     start: 662.813,
     end: 667.818
   },
@@ -996,7 +996,7 @@ const subtitles = [
   {
     japanese: "ああ 知ってる あれ 何？って感じだよね",
     furigana: "ああ しってる あれ なに？ってかんじだよね",
-    english: "Oh, I know, it's like, "What's that?" right?",
+    english: "Oh, I know, it's like, \"What's that?\" right?",
     start: 740.825,
     end: 742.827
   },
@@ -1108,7 +1108,7 @@ const subtitles = [
   {
     japanese: "…って言って やってないんでしょ？",
     furigana: "…っていって やってないんでしょ？",
-    english: ""You're saying that, but you haven't done it, have you?"",
+    english: "You're saying that, but you haven't done it, have you?",
     start: 805.823,
     end: 807.825
   },
@@ -1416,7 +1416,7 @@ const subtitles = [
   {
     japanese: "歌いながら フフフフ",
     furigana: "うたいながら ふふふふ",
-    english: "Singing while laughing "fufufu".",
+    english: "Singing while laughing \"fufufu\".",
     start: 1023.824,
     end: 1025.824
   },
