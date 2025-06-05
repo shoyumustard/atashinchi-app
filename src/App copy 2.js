@@ -20,15 +20,6 @@ function App() {
     return () => video.removeEventListener("timeupdate", update);
   }, [currentIndex]);
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [isDarkMode]);
-
   const speakJapanese = (text) => {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
@@ -45,7 +36,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className={`${isDarkMode ? 'dark' : ''}`}>
       <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
         <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-6 shadow-md border-b flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
@@ -79,7 +70,7 @@ function App() {
                 className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${idx === currentIndex ? 'border-2 border-blue-500 bg-blue-100 dark:bg-blue-900' : 'border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900'}`}
               >
                 <p
-                  className="text-xl font-bold font-jp underline cursor-pointer hover:text-blue-600 dark:hover:text-blue-300"
+                  className="text-xl font-bold underline cursor-pointer hover:text-blue-600 dark:hover:text-blue-300"
                   onClick={() => speakJapanese(line.japanese)}
                 >
                   {line.japanese}
