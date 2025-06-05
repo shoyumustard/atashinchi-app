@@ -1,14 +1,10 @@
-// changes marked with comments 👇
-
 import { useEffect, useRef, useState } from "react";
 import subtitles from './subtitles/subtitles';
 
 function App() {
   const videoRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark'; // 👈 load preference
-  });
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -28,10 +24,8 @@ function App() {
     const root = document.documentElement;
     if (isDarkMode) {
       root.classList.add("dark");
-      localStorage.setItem('theme', 'dark'); // 👈 save preference
     } else {
       root.classList.remove("dark");
-      localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
@@ -41,12 +35,17 @@ function App() {
     utterance.lang = "ja-JP";
     const voices = speechSynthesis.getVoices();
     const jpVoice = voices.find(v => v.lang === "ja-JP" && (v.name.includes("Google") || v.name.includes("Kyoko")));
-    utterance.voice = jpVoice || voices.find(v => v.lang === "ja-JP");
+    if (jpVoice) {
+      utterance.voice = jpVoice;
+    } else {
+      const fallback = voices.find(v => v.lang === "ja-JP");
+      if (fallback) utterance.voice = fallback;
+    }
     speechSynthesis.speak(utterance);
   };
 
   return (
-    <div className="font-jp"> {/* 👈 added font-jp here */}
+    <div>
       <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
         <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-6 shadow-md border-b flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
@@ -80,7 +79,7 @@ function App() {
                 className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${idx === currentIndex ? 'border-2 border-blue-500 bg-blue-100 dark:bg-blue-900' : 'border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900'}`}
               >
                 <p
-                  className="text-xl font-bold underline cursor-pointer hover:text-blue-600 dark:hover:text-blue-300"
+                  className="text-xl font-bold font-jp underline cursor-pointer hover:text-blue-600 dark:hover:text-blue-300"
                   onClick={() => speakJapanese(line.japanese)}
                 >
                   {line.japanese}
