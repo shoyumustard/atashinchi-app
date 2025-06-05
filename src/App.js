@@ -6,16 +6,19 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [mode, setMode] = useState("dark");
 
-  // Load and apply mode from localStorage
+  // Load mode from localStorage
   useEffect(() => {
     const saved = localStorage.getItem("theme") || "dark";
     setMode(saved);
-    document.documentElement.classList.toggle("dark", saved === "dark");
   }, []);
 
-  // Sync HTML class and localStorage on change
+  // Sync <html> class and localStorage
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", mode === "dark");
+    if (mode === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     localStorage.setItem("theme", mode);
   }, [mode]);
 
