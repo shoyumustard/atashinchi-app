@@ -62,7 +62,8 @@ function App() {
                 }`}
               >
                 <p
-                  className="text-xl font-bold underline tracking-wider cursor-pointer hover:text-blue-600"
+                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-600"
+                  style={{ fontFamily: '"Noto Sans JP"', fontWeight: 700 }}
                   onClick={() => speakJapanese(line.japanese)}
                 >
                   {line.japanese}
