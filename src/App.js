@@ -1,17 +1,26 @@
 import { useEffect, useRef, useState } from "react";
-import subtitles from './subtitles/subtitles';
+import { DarkModeToggle } from "dark-mode-toggle";
+import subtitles from "./subtitles/subtitles";
 
 function App() {
   const videoRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [mode, setMode] = useState("dark");
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", mode === "dark");
+  }, [mode]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     const update = () => {
       const t = video.currentTime;
-      const i = subtitles.findIndex((line, idx) =>
-        typeof line.start === 'number' && t >= line.start && t < (subtitles[idx + 1]?.start ?? Infinity)
+      const i = subtitles.findIndex(
+        (line, idx) =>
+          typeof line.start === "number" &&
+          t >= line.start &&
+          t < (subtitles[idx + 1]?.start ?? Infinity)
       );
       if (i !== -1 && i !== currentIndex) setCurrentIndex(i);
     };
@@ -24,19 +33,35 @@ function App() {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     const voices = speechSynthesis.getVoices();
-    const jpVoice = voices.find(v => v.lang === "ja-JP" && (v.name.includes("Google") || v.name.includes("Kyoko")));
-    utterance.voice = jpVoice || voices.find(v => v.lang === "ja-JP");
+    const jpVoice = voices.find(
+      (v) => v.lang === "ja-JP" && (v.name.includes("Google") || v.name.includes("Kyoko"))
+    );
+    utterance.voice = jpVoice || voices.find((v) => v.lang === "ja-JP");
     speechSynthesis.speak(utterance);
   };
 
   return (
-    <div className="dark font-jp">
-      <div className="flex flex-col h-screen bg-gray-900 text-white">
-        <div className="sticky top-0 z-10 bg-gray-900 p-6 shadow-md border-b border-gray-700 flex flex-col items-center">
+    <div className="font-jp">
+      <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
+        <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
+            <DarkModeToggle
+              mode={mode}
+              dark="Dark"
+              light="Light"
+              size="sm"
+              inactiveTrackColor="#e2e8f0"
+              activeTrackColor="#334155"
+              inactiveTrackColorOnHover="#cbd5e1"
+              activeTrackColorOnHover="#1e293b"
+              onChange={setMode}
+            />
           </div>
-          <div className="rounded-lg overflow-hidden shadow-lg border border-gray-700 w-1/2" style={{ position: 'relative', height: 0, paddingBottom: '28.125%' }}>
+          <div
+            className="rounded-lg overflow-hidden shadow-lg border border-gray-300 dark:border-gray-700 w-1/2"
+            style={{ position: "relative", height: 0, paddingBottom: "28.125%" }}
+          >
             <iframe
               width="100%"
               height="100%"
@@ -46,34 +71,43 @@ function App() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               referrerPolicy="strict-origin-when-cross-origin"
-              style={{ border: 'none', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, overflow: 'hidden' }}
+              style={{
+                border: "none",
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                left: 0,
+                top: 0,
+                overflow: "hidden",
+              }}
             ></iframe>
           </div>
         </div>
 
-        <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-800">
-          {Array.isArray(subtitles) && subtitles.map((line, idx) => (
-            <div key={idx}>
-              <div
-                className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${
-                  idx === currentIndex
-                    ? 'border-2 border-blue-400 bg-gray-700'
-                    : 'border border-gray-600 bg-gray-800'
-                }`}
-              >
-                <p
-                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-400"
-                  style={{ fontFamily: '"Noto Sans JP"', fontWeight: 700 }}
-                  onClick={() => speakJapanese(line.japanese)}
+        <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-100 dark:bg-gray-800">
+          {Array.isArray(subtitles) &&
+            subtitles.map((line, idx) => (
+              <div key={idx}>
+                <div
+                  className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${
+                    idx === currentIndex
+                      ? "border-2 border-blue-400 bg-blue-100 dark:bg-blue-900"
+                      : "border border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800"
+                  }`}
                 >
-                  {line.japanese}
-                </p>
-                <p className="text-sm text-gray-400 mt-1">{line.furigana}</p>
-                <p className="text-base mt-2 text-gray-300">{line.english}</p>
+                  <p
+                    className="text-xl underline tracking-wider cursor-pointer hover:text-blue-600 dark:hover:text-blue-400"
+                    style={{ fontFamily: '"Noto Sans JP"', fontWeight: 700 }}
+                    onClick={() => speakJapanese(line.japanese)}
+                  >
+                    {line.japanese}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{line.furigana}</p>
+                  <p className="text-base mt-2 text-gray-700 dark:text-gray-300">{line.english}</p>
+                </div>
+                <hr className="mt-6 border-t border-gray-300 dark:border-gray-600" />
               </div>
-              <hr className="mt-6 border-t border-gray-600" />
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
