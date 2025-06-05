@@ -1,16 +1,14 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // 🔹 Add your React source files here
-    "./public/index.html"         // 🔹 Include your HTML
+    "./src/**/*.{js,jsx,ts,tsx,html}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        jp: ['"Noto Sans JP"', 'sans-serif']
-      }
-    }
+        jp: ['"Noto Sans JP"', 'sans-serif'],
+      },
+    },
   },
-  darkMode: 'class', // 🔹 Ensure dark mode works via class
-  plugins: []
-}
+  plugins: [],
+};
