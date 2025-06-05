@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { DarkModeToggle } from "dark-mode-toggle";
 import subtitles from "./subtitles/subtitles";
 
 function App() {
@@ -7,8 +6,17 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [mode, setMode] = useState("dark");
 
+  // Load and apply mode from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") || "dark";
+    setMode(saved);
+    document.documentElement.classList.toggle("dark", saved === "dark");
+  }, []);
+
+  // Sync HTML class and localStorage on change
   useEffect(() => {
     document.documentElement.classList.toggle("dark", mode === "dark");
+    localStorage.setItem("theme", mode);
   }, [mode]);
 
   useEffect(() => {
@@ -16,11 +24,10 @@ function App() {
     if (!video) return;
     const update = () => {
       const t = video.currentTime;
-      const i = subtitles.findIndex(
-        (line, idx) =>
-          typeof line.start === "number" &&
-          t >= line.start &&
-          t < (subtitles[idx + 1]?.start ?? Infinity)
+      const i = subtitles.findIndex((line, idx) =>
+        typeof line.start === "number" &&
+        t >= line.start &&
+        t < (subtitles[idx + 1]?.start ?? Infinity)
       );
       if (i !== -1 && i !== currentIndex) setCurrentIndex(i);
     };
@@ -40,24 +47,25 @@ function App() {
     speechSynthesis.speak(utterance);
   };
 
+  const toggleMode = () => {
+    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   return (
     <div className="font-jp">
       <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
         <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
-            <DarkModeToggle
-              mode={mode}
-              dark="Dark"
-              light="Light"
-              size="sm"
-              inactiveTrackColor="#e2e8f0"
-              activeTrackColor="#334155"
-              inactiveTrackColorOnHover="#cbd5e1"
-              activeTrackColorOnHover="#1e293b"
-              onChange={setMode}
-            />
+
+            <button
+              onClick={toggleMode}
+              className="ml-4 text-sm px-4 py-2 border rounded-full transition-all bg-gray-200 dark:bg-gray-700 text-black dark:text-white border-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600"
+            >
+              {mode === "dark" ? "🌙 Dark" : "☀️ Light"}
+            </button>
           </div>
+
           <div
             className="rounded-lg overflow-hidden shadow-lg border border-gray-300 dark:border-gray-700 w-1/2"
             style={{ position: "relative", height: 0, paddingBottom: "28.125%" }}
