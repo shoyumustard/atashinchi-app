@@ -6,10 +6,6 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(null);
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
-  }, []);
-
-  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     const update = () => {
@@ -38,14 +34,12 @@ function App() {
   };
 
   return (
-    <div className="font-jp dark">
+    <div className="font-jp">
       <div className="flex flex-col h-screen bg-gray-900 text-white">
         <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-700 bg-gray-900 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
-            <div className="text-sm border border-gray-400 px-4 py-2 rounded-full">
-              🌙 Dark Mode
-            </div>
+            
           </div>
 
           <div
