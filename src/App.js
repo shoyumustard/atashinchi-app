@@ -7,16 +7,27 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [mode, setMode] = useState("dark");
 
-  // Load mode from localStorage
+  // Initialize theme from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem("theme") || "dark";
-    setMode(saved);
+    const savedMode = localStorage.getItem("theme") || "light";
+    setMode(savedMode);
+    if (savedMode === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, []);
 
-  // Save mode preference
-  useEffect(() => {
-    localStorage.setItem("theme", mode);
-  }, [mode]);
+  const toggleMode = () => {
+    const newMode = mode === "dark" ? "light" : "dark";
+    setMode(newMode);
+    localStorage.setItem("theme", newMode);
+    if (newMode === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
   useEffect(() => {
     const video = videoRef.current;
@@ -46,12 +57,8 @@ function App() {
     speechSynthesis.speak(utterance);
   };
 
-  const toggleMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
   return (
-    <div className={`font-jp ${mode === "dark" ? "dark" : ""}`}>
+    <div className="font-jp">
       <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
         <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
