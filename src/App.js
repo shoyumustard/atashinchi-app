@@ -39,8 +39,8 @@ function App() {
 
   return (
     <div className="font-jp dark">
-      <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
-        <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col items-center">
+      <div className="flex flex-col h-screen bg-gray-900 text-white">
+        <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-700 bg-gray-900 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
             <div className="text-sm border border-gray-400 px-4 py-2 rounded-full">
@@ -49,7 +49,7 @@ function App() {
           </div>
 
           <div
-            className="rounded-lg overflow-hidden shadow-lg border border-gray-300 dark:border-gray-700 w-1/2"
+            className="rounded-lg overflow-hidden shadow-lg border border-gray-700 w-1/2"
             style={{ position: "relative", height: 0, paddingBottom: "28.125%" }}
           >
             <iframe
@@ -74,28 +74,28 @@ function App() {
           </div>
         </div>
 
-        <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-100 dark:bg-gray-800">
+        <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-800">
           {Array.isArray(subtitles) &&
             subtitles.map((line, idx) => (
               <div key={idx}>
                 <div
                   className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${
                     idx === currentIndex
-                      ? "border-2 border-blue-400 bg-blue-100 dark:bg-blue-900"
-                      : "border border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800"
+                      ? "border-2 border-blue-400 bg-blue-900"
+                      : "border border-gray-600 bg-gray-800"
                   }`}
                 >
                   <p
-                    className="text-xl underline tracking-wider cursor-pointer hover:text-blue-600 dark:hover:text-blue-400"
+                    className="text-xl underline tracking-wider cursor-pointer hover:text-blue-400"
                     style={{ fontFamily: '"Noto Sans JP"', fontWeight: 700 }}
                     onClick={() => speakJapanese(line.japanese)}
                   >
                     {line.japanese}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{line.furigana}</p>
-                  <p className="text-base mt-2 text-gray-700 dark:text-gray-300">{line.english}</p>
+                  <p className="text-sm text-gray-400 mt-1">{line.furigana}</p>
+                  <p className="text-base mt-2 text-gray-300">{line.english}</p>
                 </div>
-                <hr className="mt-6 border-t border-gray-300 dark:border-gray-600" />
+                <hr className="mt-6 border-t border-gray-600" />
               </div>
             ))}
         </div>
