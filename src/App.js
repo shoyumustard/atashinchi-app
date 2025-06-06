@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/ui/tabs";
 import subtitles from "./subtitles/sub_001";
-import subtitles2 from "./subtitles/sub_550"; // Create this file
+import subtitles2 from "./subtitles/sub_550";
+import subtitles3 from "./subtitles/sub_551";
 
 function SubtitleViewer({ subtitles, videoSrc, title }) {
   const videoRef = useRef(null);
@@ -43,19 +44,14 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
         <div className="flex justify-between items-center w-full max-w-3xl mb-4">
           <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
         </div>
+
         <div
           className="rounded-lg overflow-hidden shadow-lg border border-gray-700 w-1/2"
           style={{ position: "relative", height: 0, paddingBottom: "28.125%" }}
         >
-          <iframe
-            width="100%"
-            height="100%"
-            src={videoSrc}
-            title="Video player"
-            frameBorder="0"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            referrerPolicy="strict-origin-when-cross-origin"
+          <video
+            ref={videoRef}
+            controls
             style={{
               border: "none",
               width: "100%",
@@ -65,8 +61,10 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
               top: 0,
               overflow: "hidden",
             }}
-            ref={videoRef}
-          ></iframe>
+          >
+            <source src={videoSrc} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 
@@ -106,6 +104,8 @@ function App() {
         <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-900 p-2 border-b border-gray-700">
           <TabsTrigger value="ep1">Episode 1</TabsTrigger>
           <TabsTrigger value="ep2">Episode 550</TabsTrigger>
+          <TabsTrigger value="ep3">Episode 551</TabsTrigger>
+
         </TabsList>
 
         <TabsContent value="ep1">
@@ -123,6 +123,15 @@ function App() {
             title="Atashin'chi Episode 550"
           />
         </TabsContent>
+        
+        <TabsContent value="ep3">
+          <SubtitleViewer
+            subtitles={subtitles3}
+            videoSrc="/video/Atashinchi_551.mp4"
+            title="Atashin'chi Episode 551"
+          />
+        </TabsContent>
+
       </Tabs>
     </div>
   );

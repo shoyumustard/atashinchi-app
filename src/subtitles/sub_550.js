@@ -1,4 +1,4 @@
-const subtitles2 = [
+const subtitles = [
   {
     japanese: "（母）みかん さあ朝よ 早く起きなさい",
     furigana: "（はは）みかん さああさよ はやくおきなさい",
