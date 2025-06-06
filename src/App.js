@@ -13,7 +13,7 @@ function App() {
     setMode(saved);
   }, []);
 
-  // Save mode to localStorage (no DOM manipulation here)
+  // Save mode preference
   useEffect(() => {
     localStorage.setItem("theme", mode);
   }, [mode]);
