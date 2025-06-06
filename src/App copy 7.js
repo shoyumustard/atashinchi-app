@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import subtitles from "./subtitles/subtitles";
+
 import { Button } from "./components/ui/button";
 
 function App() {
@@ -13,8 +14,13 @@ function App() {
     setMode(saved);
   }, []);
 
-  // Save mode to localStorage (no DOM manipulation here)
+  // Sync <html> class and localStorage
   useEffect(() => {
+    if (mode === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     localStorage.setItem("theme", mode);
   }, [mode]);
 
@@ -51,15 +57,15 @@ function App() {
   };
 
   return (
-    <div className={`font-jp ${mode === "dark" ? "dark" : ""}`}>
+    <div className="font-jp">
       <div className="flex flex-col h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
         <div className="sticky top-0 z-10 p-6 shadow-md border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col items-center">
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
-            <Button
+
+            <Button variant="outline"
               onClick={toggleMode}
-              variant="outline"
-              className="ml-4 text-sm"
+              className="ml-4 text-sm px-4 py-2 border rounded-full transition-all bg-gray-200 dark:bg-gray-700 text-black dark:text-white border-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               {mode === "dark" ? "🌙 Dark" : "☀️ Light"}
             </Button>
@@ -75,7 +81,7 @@ function App() {
               src="/video/Atashinchi_001.mp4"
               title="Video player"
               frameBorder="0"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               referrerPolicy="strict-origin-when-cross-origin"
               style={{
