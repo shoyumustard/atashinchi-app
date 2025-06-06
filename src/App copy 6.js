@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import subtitles from "./subtitles/subtitles";
 
-import { Button } from "./components/ui/button";
-
 function App() {
   const videoRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(null);
@@ -63,12 +61,12 @@ function App() {
           <div className="flex justify-between items-center w-full max-w-3xl mb-4">
             <h1 className="text-3xl font-bold tracking-tight">Atashin'chi Episode 1</h1>
 
-            <Button variant="outline"
+            <button
               onClick={toggleMode}
               className="ml-4 text-sm px-4 py-2 border rounded-full transition-all bg-gray-200 dark:bg-gray-700 text-black dark:text-white border-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               {mode === "dark" ? "🌙 Dark" : "☀️ Light"}
-            </Button>
+            </button>
           </div>
 
           <div
