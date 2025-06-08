@@ -91,7 +91,7 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
   );
 }
 
-export default function Test() {
+function Test() {
   return (
     <div className="text-2xl text-white p-8 bg-black">
       <p>
