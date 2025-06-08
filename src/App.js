@@ -53,9 +53,13 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
 
         {subtitles[currentIndex] && (
           <div className="absolute bottom-6 w-full text-center px-4">
-            <div className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text font-jp leading-snug">
-              <p dangerouslySetInnerHTML={{ __html: subtitles[currentIndex].ruby }} />
-              <p className="text-base mt-1">{subtitles[currentIndex].english}</p>
+            <div className="w-full max-w-3xl mx-auto">
+              <hr className="mb-2 border-t border-gray-400 dark:border-gray-600" />
+              <div className="text-white text-xl md:text-2xl bg-black/80 inline-block px-6 py-4 rounded subtitle-text font-jp leading-snug">
+                <p dangerouslySetInnerHTML={{ __html: subtitles[currentIndex].ruby }} />
+                <p className="text-base mt-2">{subtitles[currentIndex].english}</p>
+              </div>
+              <hr className="mt-2 border-t border-gray-400 dark:border-gray-600" />
             </div>
           </div>
         )}
