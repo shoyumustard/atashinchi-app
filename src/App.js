@@ -67,8 +67,9 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
 
       <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-100 dark:bg-gray-900">
         {Array.isArray(subtitles) &&
-          subtitles.map((line, idx) => (
-            <div key={idx}>
+          subtitles.map((line, idx) => {
+          const isActive = idx === currentIndex;
+            <div key={idx} className={isActive ? '' : 'opacity-60'}>
               <div
                 className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${
                   idx === currentIndex
