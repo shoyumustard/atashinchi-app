@@ -127,3 +127,11 @@ function App() {
               videoSrc="/video/Atashinchi_551.mp4"
               title="Atashin'chi Episode 551"
             />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </ThemeProvider>
+  );
+}
+
+export default App;
