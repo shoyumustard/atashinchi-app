@@ -53,8 +53,7 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
         {subtitles[currentIndex] && (
           <div className="absolute bottom-6 w-full text-center px-4">
             <div className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text font-jp leading-snug">
-              <p className="font-bold">{subtitles[currentIndex].japanese}</p>
-              <p className="text-sm text-gray-300">{subtitles[currentIndex].furigana}</p>
+              <p dangerouslySetInnerHTML={{ __html: subtitles[currentIndex].ruby }} />
               <p className="text-base mt-1">{subtitles[currentIndex].english}</p>
             </div>
           </div>
@@ -75,10 +74,8 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
                 <p
                   className="text-xl underline tracking-wider cursor-pointer hover:text-blue-400 font-jp"
                   onClick={() => speakJapanese(line.japanese)}
-                >
-                  {line.japanese}
-                </p>
-                <p className="text-sm text-gray-400 mt-1">{line.furigana}</p>
+                  dangerouslySetInnerHTML={{ __html: line.ruby }}
+                ></p>
                 <p className="text-base mt-2 text-gray-300">{line.english}</p>
               </div>
               <hr className="mt-6 border-t border-gray-700" />
