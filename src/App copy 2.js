@@ -106,8 +106,41 @@ function Test() {
 
 
 function App() {
-  return <Test />;
-}
+  return (
+    <div className="font-jp">
+      <Tabs defaultValue="ep1" className="w-full">
+        <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-900 p-2 border-b border-gray-700">
+          <TabsTrigger value="ep1">Episode 1</TabsTrigger>
+          <TabsTrigger value="ep2">Episode 550</TabsTrigger>
+          <TabsTrigger value="ep3">Episode 551</TabsTrigger>
+        </TabsList>
 
+        <TabsContent value="ep1">
+          <SubtitleViewer
+            subtitles={subtitles}
+            videoSrc="/video/Atashinchi_001.mp4"
+            title="Atashin'chi Episode 1"
+          />
+        </TabsContent>
+
+        <TabsContent value="ep2">
+          <SubtitleViewer
+            subtitles={subtitles2}
+            videoSrc="/video/Atashinchi_550.mp4"
+            title="Atashin'chi Episode 550"
+          />
+        </TabsContent>
+
+        <TabsContent value="ep3">
+          <SubtitleViewer
+            subtitles={subtitles3}
+            videoSrc="/video/Atashinchi_551.mp4"
+            title="Atashin'chi Episode 551"
+          />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
 
 export default App;
