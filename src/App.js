@@ -50,14 +50,16 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
           Your browser does not support the video tag.
         </video>
 
-        {subtitles[currentIndex] && (
-          <div className="absolute bottom-6 w-full text-center px-4">
-            <p className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text">
-              <strong>{subtitles[currentIndex].japanese}</strong><br />
-              {subtitles[currentIndex].english}
-            </p>
-          </div>
-        )}
+       {subtitles[currentIndex] && (
+  <div className="absolute bottom-6 w-full text-center px-4">
+    <div className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text leading-snug">
+      <p className="font-bold">{subtitles[currentIndex].japanese}</p>
+      <p className="text-sm text-gray-300">{subtitles[currentIndex].furigana}</p>
+      <p className="text-base mt-1">{subtitles[currentIndex].english}</p>
+    </div>
+  </div>
+)}
+
       </div>
 
       <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-900">
@@ -88,6 +90,20 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
     </div>
   );
 }
+
+export default function Test() {
+  return (
+    <div className="text-2xl text-white p-8 bg-black">
+      <p>
+        <ruby>
+          学<rt>がく</rt>校<rt>こう</rt>
+        </ruby>{" "}
+        に <ruby>行<rt>い</rt></ruby>きます。
+      </p>
+    </div>
+  );
+}
+
 
 function App() {
   return (
