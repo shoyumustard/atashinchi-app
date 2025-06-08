@@ -66,14 +66,16 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
         )}
       </div>
 
-      <div className="flex-grow overflow-y-scroll p-6 bg-gray-100 dark:bg-gray-900">
-        <button
-          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-          onClick={() => setShowAllSubtitles((prev) => !prev)}
-        >
-          {showAllSubtitles ? "Hide Subtitles" : "Show Subtitles"}
-        </button>
+      {/* Floating toggle button */}
+      <button
+        className="fixed bottom-6 right-6 z-50 px-4 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition"
+        onClick={() => setShowAllSubtitles((prev) => !prev)}
+      >
+        {showAllSubtitles ? "Hide Subs" : "Show Subs"}
+      </button>
 
+      {/* Static subtitle list */}
+      <div className="flex-grow overflow-y-scroll p-6 bg-gray-100 dark:bg-gray-900">
         {showAllSubtitles && (
           <div className="space-y-8">
             {Array.isArray(subtitles) &&
