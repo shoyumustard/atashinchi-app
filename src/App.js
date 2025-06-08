@@ -55,9 +55,9 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
           <div className="absolute bottom-6 w-full text-center px-4">
             <div className="w-full max-w-3xl mx-auto">
               <hr className="mb-2 border-t border-gray-400 dark:border-gray-600" />
-              <div className="text-white text-xl md:text-2xl bg-black/80 inline-block px-6 py-4 rounded subtitle-text font-jp leading-snug">
+              <div className="text-white text-2xl md:text-3xl bg-black/80 inline-block px-6 py-4 rounded subtitle-text font-jp leading-snug">
                 <p dangerouslySetInnerHTML={{ __html: subtitles[currentIndex].ruby }} />
-                <p className="text-base mt-2">{subtitles[currentIndex].english}</p>
+                <p className="text-lg mt-2">{subtitles[currentIndex].english}</p>
               </div>
               <hr className="mt-2 border-t border-gray-400 dark:border-gray-600" />
             </div>
@@ -77,11 +77,11 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
                 }`}
               >
                 <p
-                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 font-jp"
+                  className="text-base underline tracking-wider cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 font-jp"
                   onClick={() => speakJapanese(line.japanese)}
                   dangerouslySetInnerHTML={{ __html: line.ruby }}
                 ></p>
-                <p className="text-base mt-2 text-gray-800 dark:text-gray-300">{line.english}</p>
+                <p className="text-sm mt-2 text-gray-800 dark:text-gray-300">{line.english}</p>
               </div>
               <hr className="mt-6 border-t border-gray-300 dark:border-gray-700" />
             </div>
@@ -97,18 +97,18 @@ function App() {
       <div className="font-jp">
         <Tabs defaultValue="ep1" className="w-full">
           <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-100 dark:bg-gray-900 p-2 border-b border-gray-300 dark:border-gray-700">
-            <TabsTrigger value="ep1">Episode 1</TabsTrigger>
+//            <TabsTrigger value="ep1">Episode 1</TabsTrigger>
             <TabsTrigger value="ep2">Episode 550</TabsTrigger>
             <TabsTrigger value="ep3">Episode 551</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="ep1">
-            <SubtitleViewer
-              subtitles={subtitles}
-              videoSrc="/video/Atashinchi_001.mp4"
-              title="Atashin'chi Episode 1"
-            />
-          </TabsContent>
+//          <TabsContent value="ep1">
+//            <SubtitleViewer
+//              subtitles={subtitles}
+//              videoSrc="/video/Atashinchi_001.mp4"
+//              title="Atashin'chi Episode 1"
+//            />
+//          </TabsContent>
 
           <TabsContent value="ep2">
             <SubtitleViewer
