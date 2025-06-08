@@ -14,8 +14,8 @@ def add_ruby(japanese, furigana):
     return " ".join(result)
 
 # === Setup ===
-input_dir = "./subtitles"
-output_dir = "./subtitles_with_ruby"
+input_dir = "./subtitles2"
+output_dir = "./subtitles"
 os.makedirs(output_dir, exist_ok=True)
 
 def js_to_json(js_text):
@@ -29,7 +29,11 @@ def js_to_json(js_text):
     # Remove trailing commas before array/object endings
     js_text = re.sub(r',\s*([\]}])', r'\1', js_text)
 
+    # Escape problematic control characters (like raw newlines) inside strings
+    js_text = js_text.replace('\x0b', '\\u000b').replace('\x0c', '\\u000c')
+
     return js_text.strip()
+
 
 
 for filename in os.listdir(input_dir):
