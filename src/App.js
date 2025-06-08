@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/ui/tabs";
+import { ThemeProvider } from "next-themes";
 import subtitles from "./subtitles/sub_001";
 import subtitles2 from "./subtitles/sub_550";
 import subtitles3 from "./subtitles/sub_551";
@@ -39,7 +40,7 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
+    <div className="flex flex-col min-h-screen bg-white text-black dark:bg-black dark:text-white">
       <div className="relative w-full max-w-5xl mx-auto aspect-video bg-black">
         <video
           ref={videoRef}
@@ -60,25 +61,25 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
         )}
       </div>
 
-      <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-900">
+      <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-100 dark:bg-gray-900">
         {Array.isArray(subtitles) &&
           subtitles.map((line, idx) => (
             <div key={idx}>
               <div
                 className={`transition-all duration-200 p-4 rounded-xl shadow-sm ${
                   idx === currentIndex
-                    ? "border-2 border-blue-400 bg-blue-900"
-                    : "border border-gray-700 bg-gray-800"
+                    ? "border-2 border-blue-400 bg-blue-100 dark:bg-blue-900"
+                    : "border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
                 }`}
               >
                 <p
-                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-400 font-jp"
+                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 font-jp"
                   onClick={() => speakJapanese(line.japanese)}
                   dangerouslySetInnerHTML={{ __html: line.ruby }}
                 ></p>
-                <p className="text-base mt-2 text-gray-300">{line.english}</p>
+                <p className="text-base mt-2 text-gray-800 dark:text-gray-300">{line.english}</p>
               </div>
-              <hr className="mt-6 border-t border-gray-700" />
+              <hr className="mt-6 border-t border-gray-300 dark:border-gray-700" />
             </div>
           ))}
       </div>
@@ -88,39 +89,41 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
 
 function App() {
   return (
-    <div className="font-jp">
-      <Tabs defaultValue="ep1" className="w-full">
-        <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-900 p-2 border-b border-gray-700">
-          <TabsTrigger value="ep1">Episode 1</TabsTrigger>
-          <TabsTrigger value="ep2">Episode 550</TabsTrigger>
-          <TabsTrigger value="ep3">Episode 551</TabsTrigger>
-        </TabsList>
+    <ThemeProvider attribute="class">
+      <div className="font-jp">
+        <Tabs defaultValue="ep1" className="w-full">
+          <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-100 dark:bg-gray-900 p-2 border-b border-gray-300 dark:border-gray-700">
+            <TabsTrigger value="ep1">Episode 1</TabsTrigger>
+            <TabsTrigger value="ep2">Episode 550</TabsTrigger>
+            <TabsTrigger value="ep3">Episode 551</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="ep1">
-          <SubtitleViewer
-            subtitles={subtitles}
-            videoSrc="/video/Atashinchi_001.mp4"
-            title="Atashin'chi Episode 1"
-          />
-        </TabsContent>
+          <TabsContent value="ep1">
+            <SubtitleViewer
+              subtitles={subtitles}
+              videoSrc="/video/Atashinchi_001.mp4"
+              title="Atashin'chi Episode 1"
+            />
+          </TabsContent>
 
-        <TabsContent value="ep2">
-          <SubtitleViewer
-            subtitles={subtitles2}
-            videoSrc="/video/Atashinchi_550.mp4"
-            title="Atashin'chi Episode 550"
-          />
-        </TabsContent>
+          <TabsContent value="ep2">
+            <SubtitleViewer
+              subtitles={subtitles2}
+              videoSrc="/video/Atashinchi_550.mp4"
+              title="Atashin'chi Episode 550"
+            />
+          </TabsContent>
 
-        <TabsContent value="ep3">
-          <SubtitleViewer
-            subtitles={subtitles3}
-            videoSrc="/video/Atashinchi_551.mp4"
-            title="Atashin'chi Episode 551"
-          />
-        </TabsContent>
-      </Tabs>
-    </div>
+          <TabsContent value="ep3">
+            <SubtitleViewer
+              subtitles={subtitles3}
+              videoSrc="/video/Atashinchi_551.mp4"
+              title="Atashin'chi Episode 551"
+            />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </ThemeProvider>
   );
 }
 
