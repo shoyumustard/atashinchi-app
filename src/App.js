@@ -50,16 +50,15 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
           Your browser does not support the video tag.
         </video>
 
-       {subtitles[currentIndex] && (
-  <div className="absolute bottom-6 w-full text-center px-4">
-    <div className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text leading-snug">
-      <p className="font-bold">{subtitles[currentIndex].japanese}</p>
-      <p className="text-sm text-gray-300">{subtitles[currentIndex].furigana}</p>
-      <p className="text-base mt-1">{subtitles[currentIndex].english}</p>
-    </div>
-  </div>
-)}
-
+        {subtitles[currentIndex] && (
+          <div className="absolute bottom-6 w-full text-center px-4">
+            <div className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text font-jp leading-snug">
+              <p className="font-bold">{subtitles[currentIndex].japanese}</p>
+              <p className="text-sm text-gray-300">{subtitles[currentIndex].furigana}</p>
+              <p className="text-base mt-1">{subtitles[currentIndex].english}</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="flex-grow overflow-y-scroll p-6 space-y-8 bg-gray-900">
@@ -74,8 +73,7 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
                 }`}
               >
                 <p
-                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-400"
-                  style={{ fontFamily: '"Noto Sans JP"', fontWeight: 700 }}
+                  className="text-xl underline tracking-wider cursor-pointer hover:text-blue-400 font-jp"
                   onClick={() => speakJapanese(line.japanese)}
                 >
                   {line.japanese}
@@ -91,25 +89,42 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
   );
 }
 
-function Test() {
+function App() {
   return (
-    <div className="text-white text-lg bg-black/70 inline-block px-4 py-2 rounded subtitle-text font-jp leading-snug">
+    <div className="font-jp">
+      <Tabs defaultValue="ep1" className="w-full">
+        <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-900 p-2 border-b border-gray-700">
+          <TabsTrigger value="ep1">Episode 1</TabsTrigger>
+          <TabsTrigger value="ep2">Episode 550</TabsTrigger>
+          <TabsTrigger value="ep3">Episode 551</TabsTrigger>
+        </TabsList>
 
-      <p>
-        <ruby>
-          学<rt>がく</rt>校<rt>こう</rt>
-        </ruby>{" "}
-        に <ruby>行<rt>い</rt></ruby>きます。
-      </p>
+        <TabsContent value="ep1">
+          <SubtitleViewer
+            subtitles={subtitles}
+            videoSrc="/video/Atashinchi_001.mp4"
+            title="Atashin'chi Episode 1"
+          />
+        </TabsContent>
+
+        <TabsContent value="ep2">
+          <SubtitleViewer
+            subtitles={subtitles2}
+            videoSrc="/video/Atashinchi_550.mp4"
+            title="Atashin'chi Episode 550"
+          />
+        </TabsContent>
+
+        <TabsContent value="ep3">
+          <SubtitleViewer
+            subtitles={subtitles3}
+            videoSrc="/video/Atashinchi_551.mp4"
+            title="Atashin'chi Episode 551"
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
-
-
-
-function App() {
-  return <Test />;
-}
-
 
 export default App;
