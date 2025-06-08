@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/ui/tabs";
 import { ThemeProvider } from "next-themes";
-// import subtitles from "./subtitles/sub_001";
+import subtitles from "./subtitles/sub_001";
 import subtitles2 from "./subtitles/sub_550";
 import subtitles3 from "./subtitles/sub_551";
 
@@ -97,18 +97,18 @@ function App() {
       <div className="font-jp">
         <Tabs defaultValue="ep2" className="w-full">
           <TabsList className="sticky top-0 z-20 flex justify-center bg-gray-100 dark:bg-gray-900 p-2 border-b border-gray-300 dark:border-gray-700">
-//            <TabsTrigger value="ep1">Episode 1</TabsTrigger>
+            <TabsTrigger value="ep1">Episode 1</TabsTrigger>
             <TabsTrigger value="ep2">Episode 550</TabsTrigger>
             <TabsTrigger value="ep3">Episode 551</TabsTrigger>
           </TabsList>
 
-//          <TabsContent value="ep1">
-//            <SubtitleViewer
-//              subtitles={subtitles}
-//              videoSrc="/video/Atashinchi_001.mp4"
-//              title="Atashin'chi Episode 1"
-//            />
-//          </TabsContent>
+          <TabsContent value="ep1">
+            <SubtitleViewer
+              subtitles={subtitles}
+              videoSrc="/video/Atashinchi_001.mp4"
+              title="Atashin'chi Episode 1"
+            />
+          </TabsContent>
 
           <TabsContent value="ep2">
             <SubtitleViewer
