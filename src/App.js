@@ -93,7 +93,7 @@ function SubtitleViewer({ subtitles, videoSrc, title }) {
 
 function Test() {
   return (
-    <div className="text-2xl text-white p-8 bg-black">
+    <div className="text-2xl text-white p-8 bg-black font-jp">
       <p>
         <ruby>
           学<rt>がく</rt>校<rt>こう</rt>
@@ -103,6 +103,7 @@ function Test() {
     </div>
   );
 }
+
 
 
 function App() {
